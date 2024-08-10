@@ -33,7 +33,7 @@ const tripsFindByCode = async(req, res) => {
          //console.log(q);
 
     if (!q)
-    { // Datanase returned no data
+    { // Database returned no data
         return res.status(404).json(err);
     } else { // Return resulting trip list
         return res.status(200).json(q);
@@ -113,9 +113,51 @@ const tripsUpdateTrip = async(req, res) => {
 
 };
 
+// DELETE: /trips/:tripCode - Deletes selected Trip
+// Regardless of outcome, response must include HTML status code
+// and JSON message to the requesting client
+const tripsDeleteTrip = async(req, res) => {
+    //console.log(req.params);
+    // console.log(req.body);
+
+    const q = await Model
+        .findOneAndDelete(
+            { 'code': req.params.tripCode },
+            {
+                code: req.body.code,
+                name: req.body.name,
+                length: req.body.length,
+                start: req.body.start,
+                resort: req.body.resort,
+                perPerson: req.body.perPerson,
+                image: req.body.image,
+                description: req.body.description
+            }
+        )
+        .exec();
+
+        if(!q)
+        { // Database returned no data
+            return res
+                .status(404)
+                .json(err);
+        } else {
+            return res
+                .status(204)
+                .json(q);
+        }
+
+        // Uncomment the following line to show
+        // the results of the operation 
+        // on the console
+        // console.log(q);
+};
+
+
 module.exports = {
     tripsList,
     tripsFindByCode,
     tripsAddTrip,
-    tripsUpdateTrip
+    tripsUpdateTrip,
+    tripsDeleteTrip
 };

@@ -18,4 +18,11 @@ router
     .get(tripsController.tripsFindByCode)
     .put(tripsController.tripsUpdateTrip);
 
+// GET Method routes tripsFindByCode - requires parameter
+// DELETE Method routes tripsDeleteTrip - requires parameter
+router
+    .route('/trips/:tripCode')
+    .get(tripsController.tripsFindByCode)
+    .delete(tripsController.tripsDeleteTrip);
+
 module.exports = router;
