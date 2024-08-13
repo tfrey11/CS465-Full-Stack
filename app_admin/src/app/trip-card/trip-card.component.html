@@ -11,10 +11,10 @@
         <p class="card-text" [innerHTML]="trip.description">
         </p>
         <div class="row justify-content-between">
-            <div class="col-md-4">
+            <div *ngIf="isLoggedIn()" class="col-md-4">
                 <button (click)="editTrip(trip)" class="btn btn-info">Edit Trip</button>
             </div>
-            <div class="col-md-4">
+            <div *ngIf="isLoggedIn()" class="col-md-4">
                 <button (click)="deleteTrip(trip)" class="btn btn-danger">Delete Trip</button>
             </div>
         </div>
